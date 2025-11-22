@@ -26,7 +26,6 @@ public:
 
     void enqueue(T item) {
         Node<T>* newNode = new Node<T>(item);
-
         if (isEmpty()) {
             front = newNode;
             rear = newNode;
@@ -35,7 +34,6 @@ public:
             rear->setNext(newNode);
             rear = newNode;
         }
-
         count++;
     }
 
@@ -45,9 +43,8 @@ public:
         }
 
         Node<T>* curr = front;
-        T item = front->getItem();
-
-        front = front->getNext();
+        T item = front->getitem(); 
+        front = front->getnext();  
 
         if (front == nullptr) {
             rear = nullptr;
@@ -58,3 +55,4 @@ public:
         return item;
     }
 };
+
