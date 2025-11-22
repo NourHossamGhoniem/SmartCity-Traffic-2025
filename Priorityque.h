@@ -1,34 +1,78 @@
-#ifndef PRIORITYQUEUE_H
-#define PRIORITYQUEUE_H
-
+#pragma once
 #include "LinkedList.h"
+#include <iostream>
+using namespace std;
 
-template<class T>
+template <class T>
 class PriorityQueue : public LinkedList<T> {
+private:
+    Node<T>* front;
+    Node<T>* rear;
+    int count;
+
 public:
-    void enqueue(T item, int time) {
-        Node<T>* n = new Node<T>(item);
-        if (n == nullptr) {
-            cout << "priority queue full\n";
-            return;
-        }
+    PriorityQueue() {
+        front = nullptr;
+        rear = nullptr;
+        count = 0;
+    }
+
+    bool isEmpty() {
+        return (front == nullptr);
+    }
+
+    void enqueue(T item) {
+        Node<T>* newNode = new Node<T>(item);
+
+        // lw empty
         if (isEmpty()) {
-            insertatbeginning(item);
+            front = newNode;
+            rear = newNode;
+            count++;
             return;
         }
-        if (time <= getHead()->getItem()->time) {
-            insertatbeginning(item);
+
+        // lw priority high
+        if (item < front->getitem()) {      
+            newNode->setNext(front);
+            front = newNode;
+            count++;
             return;
         }
-        Node<T>* p = getHead();
-        while (p->getNext() != nullptr && p->getNext()->getItem()->time <= time) {
-            p = p->getNext();
+
+        // loop
+        Node<T>* curr = front;
+        while (curr->getnext() != nullptr &&   
+            curr->getnext()->getitem() < item) { 
+            curr = curr->getnext();            
         }
-        n->setNext(p->getNext());
-        p->setNext(n);
+
+        newNode->setNext(curr->getnext());     
+        curr->setNext(newNode);
+
+        if (newNode->getnext() == nullptr) {   
+            rear = newNode;
+        }
+
+        count++;
+    }
+
+    T dequeue() {
+        if (isEmpty()) {
+            return nullptr;
+        }
+
+        Node<T>* curr = front;
+        T item = front->getitem();              
+        front = front->getnext();               
+
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+
+        delete curr;
+        count--;
+
+        return item;
     }
 };
-
-
-#endif
-//nour
