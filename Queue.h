@@ -1,70 +1,60 @@
 #pragma once
-#ifndef QUEUE_H
-#define QUEUE_H
-
-#include "LinkedList.h"
+#include "Node.h"
 #include <iostream>
 using namespace std;
 
-
-template<class T>
-class Queue : public LinkedList<T> {
+template <class T>
+class Queue {
+private:
     Node<T>* front;
     Node<T>* rear;
+    int count;
+
 public:
     Queue() {
         front = nullptr;
         rear = nullptr;
+        count = 0;
+    }
+
+    bool isEmpty() {
+        if (front == nullptr) {
+            return true;
+        }
+        return false;
     }
 
     void enqueue(T item) {
-        Node<T>* t = new Node<T>(item);
-        if (t == nullptr) {
-            cout << "the que is full\n";
-            return;
-        }
-        if (front == nullptr) {
-            front = t;
-            rear = t;
+        Node<T>* newNode = new Node<T>(item);
+
+        if (isEmpty()) {
+            front = newNode;
+            rear = newNode;
         }
         else {
-            rear->setNext(t);
-            rear = t;
+            rear->setNext(newNode);
+            rear = newNode;
         }
+
+        count++;
     }
 
     T dequeue() {
-        T x = nullptr;
         if (front == nullptr) {
-            cout << "the que is empty\n";
-            return x;
+            return nullptr;
         }
-        Node<T>* p = front;
+
+        Node<T>* curr = front;
+        T item = front->getItem();
+
         front = front->getNext();
-        x = p->getItem();
-        delete p;
+
         if (front == nullptr) {
             rear = nullptr;
-            return x;
         }
-    }
 
-    void print() {
-        cout << "  ";
-        Node<T>* p = front;
-        if (p == nullptr) {
-            cout << "the que empty\n";
-            return;
-        }
-        while (p != nullptr) {
-            p->getItem()->print();
-            cout << " ";
-            p = p->getNext();
-        }
-        cout << endl;
+        delete curr;
+
+        return item;
     }
 };
-
-#endif
-//nour
-
