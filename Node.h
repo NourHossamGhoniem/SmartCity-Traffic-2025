@@ -11,7 +11,7 @@ private:
 	Node<T>* Next;
 
 public:
-	Node<T t>{
+	Node(T t) {
 		item = t;
 	Next = nullptr;
 
@@ -31,7 +31,6 @@ public:
 
 	}
 };
-#endif
+
 
 //nour
-
