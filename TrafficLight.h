@@ -4,21 +4,34 @@ class TrafficLight {
 private:
     int greenLane;
     int switchTimer;
+    int switchCost;
+    int numSwitches;
 
 public:
-    TrafficLight() {
+    TrafficLight(int cost = 0) {
         greenLane = 0;
         switchTimer = 0;
+        switchCost = cost;
+        numSwitches = 0;
     }
 
     int getGreenLane() const {
         return greenLane;
     }
 
-    void switchLane(int newLane, int cost) {
-        if (newLane != greenLane) {
+    int getNumSwitches() const {
+        return numSwitches;
+    }
+
+    bool isSwitching() const {
+        return switchTimer > 0;
+    }
+
+    void requestSwitch(int newLane) {
+        if (newLane != greenLane && switchTimer == 0) {
             greenLane = newLane;
-            switchTimer = cost;
+            switchTimer = switchCost;
+            numSwitches++;
         }
     }
 
@@ -26,8 +39,5 @@ public:
         if (switchTimer > 0)
             switchTimer--;
     }
-
-    bool isSwitching() const {
-        return switchTimer > 0;
-    }
 };
+
