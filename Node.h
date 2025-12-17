@@ -1,36 +1,27 @@
 #pragma once
-#include <iostream>
-using namespace std;
-#ifndef NODE_H
-#define NODE_H
 
 template <class T>
 class Node {
 private:
-	T item;
-	Node<T>* Next;
+    T item;
+    Node<T>* next;
 
 public:
-	Node(T t) {
-		item = t;
-	Next = nullptr;
+    Node(T data) {
+        item = data;
+        next = nullptr;
+    }
 
-	}
-	  template <typename T>
-		void SetItemNode(T t) {
-		item = t;
-	}
-		void setNext(Node<T>* n) {
-		Next = n;
-	}
-	T getitem() {
-		return item;
-	}
-	Node<T>* getnext() {
-		return Next;
+    void setNext(Node<T>* n) {
+        next = n;
+    }
 
-	}
+    Node<T>* getNext() const {
+        return next;
+    }
+
+    T getItem() const {
+        return item;
+    }
 };
 
-
-//nour
