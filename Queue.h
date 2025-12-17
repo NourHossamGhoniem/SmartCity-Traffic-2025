@@ -1,7 +1,5 @@
 #pragma once
 #include "Node.h"
-#include <iostream>
-using namespace std;
 
 template <class T>
 class Queue {
@@ -12,25 +10,20 @@ private:
 
 public:
     Queue() {
-        front = nullptr;
-        rear = nullptr;
+        front = rear = nullptr;
         count = 0;
     }
 
-    bool isEmpty() {
-        if (front == nullptr) {
-            return true;
-        }
-        return false;
+    bool isEmpty() const {
+        return front == nullptr;
     }
 
     void enqueue(T item) {
         Node<T>* newNode = new Node<T>(item);
+
         if (isEmpty()) {
-            front = newNode;
-            rear = newNode;
-        }
-        else {
+            front = rear = newNode;
+        } else {
             rear->setNext(newNode);
             rear = newNode;
         }
@@ -38,23 +31,19 @@ public:
     }
 
     T dequeue() {
-        if (front == nullptr) {
+        if (isEmpty())
             return nullptr;
-        }
 
-        Node<T>* curr = front;
-        T item = front->getitem(); 
-        front = front->getnext();  
+        Node<T>* temp = front;
+        T item = temp->getItem();
+        front = front->getNext();
 
-        if (front == nullptr) {
+        if (!front)
             rear = nullptr;
-        }
 
-        delete curr;
+        delete temp;
         count--;
         return item;
     }
 };
-
-
 
