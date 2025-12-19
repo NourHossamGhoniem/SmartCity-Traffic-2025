@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 
 class TrafficLight {
 private:
@@ -8,36 +10,14 @@ private:
     int numSwitches;
 
 public:
-    TrafficLight(int cost = 0) {
-        greenLane = 0;
-        switchTimer = 0;
-        switchCost = cost;
-        numSwitches = 0;
-    }
+    TrafficLight(int cost = 0);
 
-    int getGreenLane() const {
-        return greenLane;
-    }
+    int getGreenLane() const;
+    int getNumSwitches() const;
+    bool isSwitching() const;
 
-    int getNumSwitches() const {
-        return numSwitches;
-    }
-
-    bool isSwitching() const {
-        return switchTimer > 0;
-    }
-
-    void requestSwitch(int newLane) {
-        if (newLane != greenLane && switchTimer == 0) {
-            greenLane = newLane;
-            switchTimer = switchCost;
-            numSwitches++;
-        }
-    }
-
-    void update() {
-        if (switchTimer > 0)
-            switchTimer--;
-    }
+    void requestSwitch(int newLane);
+    void update();
 };
+
 
